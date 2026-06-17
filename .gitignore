@@ -1,0 +1,17 @@
+# Binaries
+/crom-agente-cli
+*.exe
+*.test
+*.out
+
+# Local development states and configs
+.crom/
+.env
+.env.*
+!.env.example
+
+# IDEs & System files
+.vscode/
+.idea/
+.DS_Store
+*.swp
