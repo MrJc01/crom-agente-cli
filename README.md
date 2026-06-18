@@ -48,3 +48,21 @@ Durante a conversa com o agente, você pode digitar comandos especiais precedido
 - `/clear`: Limpa o histórico de chat exibido na tela.
 - `/help`: Mostra a ajuda no chat.
 - `/exit` ou `/quit`: Encerra o aplicativo.
+
+---
+
+## 📄 Licença
+
+Este projeto é público e licenciado sob a **Licença Pública de Conteúdo CromIA**.
+
+Copyright (C) 2026-presente CromIA, Todos os direitos reservados.
+
+Esta licença concede o direito limitado de uso, modificação e redistribuição do código.
+- **Uso Não Comercial:** Totalmente permitido.
+- **Uso Comercial:** Permitido desde que o ganho monetário (direto ou indireto) utilizando o conteúdo seja menor que 1 milhão de BRL (consulte a licença para valores em dólar).
+
+Para ver todas as regras, limites monetários e condições de conversão para a licença MIT, consulte o arquivo [LICENSE](LICENSE) na raiz deste repositório.
+
+---
+
+🌐 **Site Oficial:** [ia.crom.run](https://ia.crom.run)
