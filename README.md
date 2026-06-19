@@ -8,12 +8,29 @@ Desenvolvido em Go utilizando a suíte de TUI da Charmbracelet (`bubbletea`, `li
 
 ## Como Compilar
 
-Para compilar o binário em modo headless (sem dependência de servidores gráficos X11/GTK do systray):
+> [!IMPORTANT]
+> **Restrição de Pacotes `internal` do Go:**
+> O CLI importa pacotes internos do projeto principal (`github.com/crom/crom-agente/internal/...`). De acordo com as regras do Go, pacotes `internal` não podem ser importados por módulos externos (como o `github.com/crom/crom-agente-cli` que possui seu próprio `go.mod`).
+> 
+> Por isso, **a compilação e execução de testes locais devem sempre ser realizadas de dentro do repositório principal** (`crom-agente`), onde o compilador reconhece todos os pacotes como parte do mesmo módulo.
+
+Para compilar o binário de forma correta e atualizada:
 
 ```bash
+# Navegue até o repositório principal
 cd ../crom-agente
+
+# Compile o CLI em modo headless (evitando dependências do systray)
 go build -tags headless -o bin/crom-agente-cli ./cmd/crom-agente-cli
+
+# Copie o binário atualizado para esta pasta
 cp bin/crom-agente-cli ../crom-agente-cli/
+```
+
+Para rodar os testes unitários e de integração do CLI de dentro do repositório principal:
+```bash
+go test -v -tags headless ./internal/cli-tui/...
+go test -v -tags headless ./internal/cli/...
 ```
 
 ---
