@@ -130,22 +130,8 @@ func HandleSlashCommand(input string, model *TUIModel) (string, bool) {
 		color := strings.ToLower(args[0])
 		var ansiCode string
 		switch color {
-		case "red":
-			ansiCode = "\033[1;31m"
-		case "green":
-			ansiCode = "\033[1;32m"
-		case "yellow":
-			ansiCode = "\033[1;33m"
-		case "blue":
-			ansiCode = "\033[1;34m"
-		case "purple":
-			ansiCode = "\033[1;35m"
-		case "cyan":
-			ansiCode = "\033[1;36m"
-		case "orange":
-			ansiCode = "\033[38;5;208m"
-		case "pink":
-			ansiCode = "\033[38;5;205m"
+		case "red", "green", "yellow", "blue", "purple", "cyan", "orange", "pink":
+			ansiCode = ColorMap[color]
 		default:
 			return fmt.Sprintf("Cor desconhecida: %s. Escolha entre red, green, blue, yellow, purple, cyan, orange, pink.", color), true
 		}
@@ -163,13 +149,13 @@ func formatDiff(diff string) string {
 	var formatted []string
 	for _, line := range lines {
 		if strings.HasPrefix(line, "+") && !strings.HasPrefix(line, "+++") {
-			formatted = append(formatted, "\033[32m"+line+"\033[0m") // verde
+			formatted = append(formatted, Colorize(ColorMap["green"], line))
 		} else if strings.HasPrefix(line, "-") && !strings.HasPrefix(line, "---") {
-			formatted = append(formatted, "\033[31m"+line+"\033[0m") // vermelho
+			formatted = append(formatted, Colorize(ColorMap["red"], line))
 		} else if strings.HasPrefix(line, "@@") {
-			formatted = append(formatted, "\033[36m"+line+"\033[0m") // ciano
+			formatted = append(formatted, Colorize(ColorMap["cyan"], line))
 		} else if strings.HasPrefix(line, "diff") || strings.HasPrefix(line, "index") {
-			formatted = append(formatted, "\033[1;30m"+line+"\033[0m") // cinza escuro
+			formatted = append(formatted, Colorize("\033[1;30m", line)) // cinza escuro
 		} else {
 			formatted = append(formatted, line)
 		}

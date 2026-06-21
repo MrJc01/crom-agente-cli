@@ -229,14 +229,14 @@ func Start(opts Options) error {
 	model.agentLoop = al
 
 	// Imprimir banner de inicialização
-	fmt.Println("\033[1;35m════════════════════════════════════════════════════════════════════\033[0m")
-	fmt.Printf("\033[1;35m  CROM AGENTE CLI v0.1.0 (REPL Mode)\033[0m\n")
-	fmt.Printf("  Sessão: \033[1;36m%s\033[0m | Provedor: \033[1;36m%s\033[0m | Modelo: \033[1;36m%s\033[0m\n", opts.SessionName, resolved.Provider, resolved.Model)
-	fmt.Println("  Digite \033[1;33m/help\033[0m para comandos ou \033[1;31m/exit\033[0m para sair.")
-	fmt.Println("\033[1;35m════════════════════════════════════════════════════════════════════\033[0m")
+	fmt.Println(Colorize("\033[1;35m", "════════════════════════════════════════════════════════════════════"))
+	fmt.Printf("%s\n", Colorize("\033[1;35m", "  CROM AGENTE CLI v0.1.0 (REPL Mode)"))
+	fmt.Printf("  Sessão: %s | Provedor: %s | Modelo: %s\n", Colorize("\033[1;36m", opts.SessionName), Colorize("\033[1;36m", resolved.Provider), Colorize("\033[1;36m", resolved.Model))
+	fmt.Printf("  Digite %s para comandos ou %s para sair.\n", Colorize("\033[1;33m", "/help"), Colorize("\033[1;31m", "/exit"))
+	fmt.Println(Colorize("\033[1;35m", "════════════════════════════════════════════════════════════════════"))
 
 	for {
-		fmt.Printf("%scrom-agente >\033[0m ", model.promptColor)
+		fmt.Printf("%s ", Colorize(model.promptColor, "crom-agente >"))
 		line, err := model.reader.ReadString('\n')
 		if err != nil {
 			break
