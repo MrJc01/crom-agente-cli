@@ -68,17 +68,19 @@ Durante a conversa com o agente, você pode digitar comandos especiais precedido
 
 ---
 
-## 📄 Licença
+## 📄 Licença e Nossa Meta Open Source
 
-Este projeto é público e licenciado sob a **Licença Pública de Conteúdo CromIA**.
+Queremos **democratizar o uso de agentes autônomos em modelos locais** de forma livre. 
 
-Copyright (C) 2026-presente CromIA, Todos os direitos reservados.
+Este projeto é público e no momento licenciado sob a **Licença Pública de Conteúdo CromIA**.
 
-Esta licença concede o direito limitado de uso, modificação e redistribuição do código.
-- **Uso Não Comercial:** Totalmente permitido.
-- **Uso Comercial:** Permitido desde que o ganho monetário (direto ou indireto) utilizando o conteúdo seja menor que 1 milhão de BRL (consulte a licença para valores em dólar).
+**Nossa Meta:** Queremos construir uma base financeira sólida com esse projeto. **Assim que atingirmos nossa meta de financiamento, todos os projetos abertos (SDK, CLI, Binário) serão liberados 100% sob a licença MIT!**
 
-Para ver todas as regras, limites monetários e condições de conversão para a licença MIT, consulte o arquivo [LICENSE](LICENSE) na raiz deste repositório.
+Até lá, a licença atual concede o direito limitado de uso, modificação e redistribuição do código.
+- **Uso Não Comercial:** Totalmente permitido e encorajado.
+- **Uso Comercial:** Permitido desde que o ganho monetário (direto ou indireto) utilizando o conteúdo seja menor que 1 milhão de BRL.
+
+Para ler o documento na íntegra, consulte o arquivo [LICENSE](LICENSE).
 
 ---
 
