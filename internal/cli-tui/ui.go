@@ -85,7 +85,7 @@ func (s *InlineSpinner) Start(status string) {
 			select {
 			case <-s.stopChan:
 				return
-			case <-time.After(100 * time.Millisecond):
+			case <-time.After(50 * time.Millisecond):
 			}
 		}
 	}()
