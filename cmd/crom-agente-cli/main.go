@@ -50,6 +50,7 @@ func init() {
 	rootCmd.Flags().StringVar(&cliPermissions, "permission-mode", "scoped", "Modo de permissão (total_access, ask_every_time, scoped)")
 
 	rootCmd.AddCommand(updateCmd)
+	rootCmd.AddCommand(completionCmd)
 }
 
 func main() {
