@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"io"
 	"os"
 	"os/signal"
 	"strings"
@@ -26,6 +27,7 @@ type Options struct {
 	Model          string
 	TimeoutSeconds int
 	PermissionMode string
+	Input          io.Reader // Injeção de Stdin (Item 38)
 }
 
 type TUIModel struct {
@@ -123,7 +125,12 @@ func Start(opts Options) error {
 		attachments: make(map[string]string),
 		spinner:     NewInlineSpinner(),
 		promptColor: "\033[1;36m", // Ciano padrão
-		reader:      bufio.NewReader(os.Stdin),
+	}
+
+	if opts.Input != nil {
+		model.reader = bufio.NewReader(opts.Input)
+	} else {
+		model.reader = bufio.NewReader(os.Stdin)
 	}
 
 	// 1. Carrega o diretório global
