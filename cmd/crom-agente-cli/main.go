@@ -23,6 +23,9 @@ var rootCmd = &cobra.Command{
 	Short: "Interface de Terminal Interativa (TUI) para crom-agente",
 	Long: `crom-agente-cli fornece uma experiência de chat interativa rica (REPL/TUI) 
 baseada em terminal para co-programar com o crom-agente.`,
+	Example: `  $ crom-agente-cli
+  $ crom-agente-cli --workspace ./meu-projeto --provider anthropic
+  $ crom-agente-cli --session s123 --permission-mode total_access`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// Inicializa e executa a TUI do Bubble Tea
 		return tui.Start(tui.Options{

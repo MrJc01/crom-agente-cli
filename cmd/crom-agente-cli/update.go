@@ -25,6 +25,11 @@ type GitHubRelease struct {
 var updateCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Atualiza o CLI e o daemon crom-agente para a última versão disponível",
+	Long: `O comando update verifica o repositório GitHub por novas versões (releases) 
+do crom-agente (Daemon) e crom-agente-cli (Terminal TUI). 
+Se uma nova versão for encontrada, o binário atual será substituído.`,
+	Example: `  $ crom-agente-cli update
+  $ sudo crom-agente-cli update (se instalado globalmente no sistema)`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Println("Verificando atualizações...")
 
