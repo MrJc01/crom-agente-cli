@@ -51,6 +51,7 @@ func init() {
 
 	rootCmd.AddCommand(updateCmd)
 	rootCmd.AddCommand(completionCmd)
+	rootCmd.AddCommand(diagCmd)
 }
 
 func main() {
