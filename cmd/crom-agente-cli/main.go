@@ -45,6 +45,8 @@ func init() {
 	rootCmd.Flags().StringVar(&cliModel, "model", "", "Override do modelo de LLM")
 	rootCmd.Flags().IntVar(&cliTimeout, "timeout", 30, "Override de timeout para execução de ferramentas (segundos)")
 	rootCmd.Flags().StringVar(&cliPermissions, "permission-mode", "scoped", "Modo de permissão (total_access, ask_every_time, scoped)")
+
+	rootCmd.AddCommand(updateCmd)
 }
 
 func main() {
