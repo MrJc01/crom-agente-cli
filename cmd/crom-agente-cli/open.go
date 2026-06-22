@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"os/user"
 	"path/filepath"
 	"runtime"
 
@@ -43,6 +44,31 @@ var openCmd = &cobra.Command{
 
 		homeDir, _ := os.UserHomeDir()
 
+		// Resolve o home do usuário real quando rodando como root/sudo
+		// O install.sh salva o app no home do SUDO_USER, não em /root
+		var homeDirs []string
+		if homeDir != "" {
+			homeDirs = append(homeDirs, homeDir)
+		}
+		if sudoUser := os.Getenv("SUDO_USER"); sudoUser != "" && sudoUser != "root" {
+			if sudoHome, err := getUserHome(sudoUser); err == nil && sudoHome != homeDir {
+				homeDirs = append(homeDirs, sudoHome)
+			}
+		}
+		// Fallback: procurar em /home/* caso rodando como root sem SUDO_USER
+		if os.Getuid() == 0 {
+			if entries, err := os.ReadDir("/home"); err == nil {
+				for _, e := range entries {
+					if e.IsDir() {
+						uHome := filepath.Join("/home", e.Name())
+						if uHome != homeDir {
+							homeDirs = append(homeDirs, uHome)
+						}
+					}
+				}
+			}
+		}
+
 		var candidates []string
 
 		// ────────────────────────────────────────────────────────
@@ -50,11 +76,11 @@ var openCmd = &cobra.Command{
 		//    O install.sh coloca o AppImage/DMG em:
 		//    ~/Desktop/CromIA/ ou ~/CromIA/ (se Desktop não existir)
 		// ────────────────────────────────────────────────────────
-		if homeDir != "" {
+		for _, hDir := range homeDirs {
 			candidates = append(candidates,
-				filepath.Join(homeDir, "Desktop", "CromIA", appFile),
-				filepath.Join(homeDir, "Área de Trabalho", "CromIA", appFile),
-				filepath.Join(homeDir, "CromIA", appFile),
+				filepath.Join(hDir, "Desktop", "CromIA", appFile),
+				filepath.Join(hDir, "Área de Trabalho", "CromIA", appFile),
+				filepath.Join(hDir, "CromIA", appFile),
 			)
 		}
 
@@ -91,10 +117,10 @@ var openCmd = &cobra.Command{
 			)
 		}
 
-		if homeDir != "" {
+		for _, hDir := range homeDirs {
 			candidates = append(candidates,
-				filepath.Join(homeDir, "Documentos", "GitHub", "crom-agente-app", "src-tauri", "target", "release", devBin),
-				filepath.Join(homeDir, "Documentos", "GitHub", "crom-agente-app", "src-tauri", "target", "debug", devBin),
+				filepath.Join(hDir, "Documentos", "GitHub", "crom-agente-app", "src-tauri", "target", "release", devBin),
+				filepath.Join(hDir, "Documentos", "GitHub", "crom-agente-app", "src-tauri", "target", "debug", devBin),
 			)
 		}
 
@@ -107,6 +133,10 @@ var openCmd = &cobra.Command{
 				continue
 			}
 			if info, err := os.Stat(path); err == nil && !info.IsDir() {
+				// Verificar tamanho mínimo para evitar arquivos corrompidos
+				if info.Size() < 1024*1024 { // < 1MB = provavelmente corrompido
+					continue
+				}
 				foundPath = path
 				break
 			}
@@ -182,3 +212,11 @@ var openCmd = &cobra.Command{
 	},
 }
 
+// getUserHome retorna o diretório home de um usuário pelo nome.
+func getUserHome(username string) (string, error) {
+	u, err := user.Lookup(username)
+	if err != nil {
+		return "", err
+	}
+	return u.HomeDir, nil
+}
