@@ -21,8 +21,6 @@ cross:
 	@GOOS=linux GOARCH=amd64 go build -ldflags="-s -w -X main.Version=$(VERSION)" -o $(BIN_DIR)/$(APP_NAME)-linux-amd64 ./cmd/crom-agente-cli
 	@echo "Compilando para Linux (arm64)..."
 	@GOOS=linux GOARCH=arm64 go build -ldflags="-s -w -X main.Version=$(VERSION)" -o $(BIN_DIR)/$(APP_NAME)-linux-arm64 ./cmd/crom-agente-cli
-	@echo "Compilando para Windows (amd64)..."
-	@GOOS=windows GOARCH=amd64 go build -ldflags="-s -w -X main.Version=$(VERSION)" -o $(BIN_DIR)/$(APP_NAME)-windows-amd64.exe ./cmd/crom-agente-cli
 	@echo "Compilando para macOS (amd64)..."
 	@GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w -X main.Version=$(VERSION)" -o $(BIN_DIR)/$(APP_NAME)-darwin-amd64 ./cmd/crom-agente-cli
 	@echo "Compilando para macOS (arm64)..."
